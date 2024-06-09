@@ -40,7 +40,7 @@ class _EditTaskViewBodyState extends State<EditTaskViewBody> {
                   widget.task.save();
                   BlocProvider.of<TaskApiCubit>(context).editTaskApi(widget.id, widget.task.title);
                   BlocProvider.of<TasksCubit>(context).fetchAllTasks();
-                  BlocProvider.of<TaskApiCubit>(context).getTasksApi(limit: 10, skip: 10);
+                  BlocProvider.of<TaskApiCubit>(context).getTasksApi(limit: 10, skip: 0);
 
                   Navigator.pop(context);
                 },

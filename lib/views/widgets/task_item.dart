@@ -59,7 +59,7 @@ class TaskItem extends StatelessWidget {
                       BlocProvider.of<TaskApiCubit>(context).deleteTaskApi(id);
                       task.delete();
                       BlocProvider.of<TasksCubit>(context).fetchAllTasks();
-                      BlocProvider.of<TaskApiCubit>(context).getTasksApi(limit: 10, skip: 10);
+                      BlocProvider.of<TaskApiCubit>(context).getTasksApi(limit: 10, skip: 0);
 
                     },
                     icon: const Icon(

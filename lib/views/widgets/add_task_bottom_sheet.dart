@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:task_manager_app/business_logic/add_task_cubit/add_task_cubit.dart';
-import 'package:task_manager_app/business_logic/add_task_cubit/add_task_states.dart';
 import 'package:task_manager_app/business_logic/tasks_apis_cubit/tasks_api_cubit.dart';
 import 'package:task_manager_app/business_logic/tasks_apis_cubit/tasks_api_states.dart';
 import 'package:task_manager_app/business_logic/tasks_cubit/tasks_cubit.dart';
@@ -22,7 +20,7 @@ class AddTaskBottomSheet extends StatelessWidget {
           Navigator.pop(context);
         }
         if (state is AddTaskSuccess) {
-          BlocProvider.of<TaskApiCubit>(context).getTasksApi(limit: 10, skip: 10);
+          BlocProvider.of<TaskApiCubit>(context).getTasksApi(limit: 10, skip: 0);
           Navigator.pop(context);
         }
       },

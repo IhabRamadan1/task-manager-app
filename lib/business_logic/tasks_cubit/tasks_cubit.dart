@@ -16,16 +16,17 @@ class TasksCubit extends Cubit<TasksState> {
   //   emit(TaskSuccess());
   // }
 
-  List<TaskModel>? tasks; // Change to nullable to support pagination
+  List<TaskModel>? tasks;
   bool isLoadingTasks = false;
   int _localLimit = 10;
-  int _localSkip = 10; // Track the current position for pagination
+  int _localSkip = 0;
 
   // Fetch initial tasks from Hive
   void fetchAllTasks() {
     var tasksBox = Hive.box<TaskModel>(kTaskBox);
-    tasks = tasksBox.values.take(_localLimit).toList(); // Fetch initial tasks based on limit
-    _localSkip = _localLimit; // Update skip position
+    tasks = tasksBox.values.take(_localLimit).toList();
+    // Update skip position
+    _localSkip = _localLimit;
     emit(TaskSuccess());
   }
 
@@ -38,8 +39,10 @@ class TasksCubit extends Cubit<TasksState> {
       var tasksBox = Hive.box<TaskModel>(kTaskBox);
       final moreTasks = tasksBox.values.skip(_localSkip).take(_localLimit).toList(); // Fetch more tasks based on limit and skip
       if (moreTasks.isNotEmpty) {
-        tasks!.addAll(moreTasks); // Add fetched tasks to the existing list
-        _localSkip += _localLimit; // Update skip position
+        // Add fetched tasks to the existing list
+        tasks!.addAll(moreTasks);
+        // Update skip position
+        _localSkip += _localLimit;
         emit(GetTasksSuccess());
       } else {
         emit(GetTasksFailure("No more tasks available")); // Emit failure if no more tasks available

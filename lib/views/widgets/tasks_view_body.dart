@@ -31,7 +31,7 @@ class _TasksViewBodyState extends State<TasksViewBody> {
   @override
   Widget build(BuildContext context) {
     return  BlocProvider(
-     create: (context)=> TaskApiCubit()..getTasksApi(limit: 10, skip: 10),
+     create: (context)=> TaskApiCubit()..getTasksApi(limit: 10, skip: 0),
       child: BlocConsumer<TaskApiCubit,TaskApiState>(
         listener: (context,state){},
         builder: (context,state){
