@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
-import '../business_logic/add_task_cubit/add_task_cubit.dart';
-import '../business_logic/add_task_cubit/add_task_states.dart';
-import 'widgets/colors_list_view.dart';
-import 'widgets/custom_button.dart';
-import 'widgets/custom_text_field.dart';
+import 'package:task_manager_app/business_logic/add_task_cubit/add_task_cubit.dart';
+import 'package:task_manager_app/business_logic/add_task_cubit/add_task_states.dart';
+import 'package:task_manager_app/models/task_manager_model.dart';
 
+import 'colors_list_view.dart';
+import 'custom_button.dart';
+import 'custom_text_field.dart';
 
 class AddTaskForm extends StatefulWidget {
   const AddTaskForm({
@@ -57,10 +58,10 @@ class _AddTaskFormState extends State<AddTaskForm> {
           const SizedBox(
             height: 32,
           ),
-          BlocBuilder<AddNoteCubit, AddNoteState>(
+          BlocBuilder<AddTaskCubit, AddTaskState>(
             builder: (context, state) {
               return CustomButton(
-                isLoading: state is AddNoteLoading ? true : false,
+                isLoading: state is AddTaskLoading ? true : false,
                 onTap: () {
                   if (formKey.currentState!.validate()) {
                     formKey.currentState!.save();
@@ -68,12 +69,12 @@ class _AddTaskFormState extends State<AddTaskForm> {
 
                     var formattedCurrentDate =
                     DateFormat('dd-mm-yyyy').format(currentDate);
-                    // var noteModel = NoteModel(
-                    //     title: title!,
-                    //     subTitle: subTitle!,
-                    //     date: formattedCurrentDate,
-                    //     color: Colors.blue.value);
-                    // BlocProvider.of<AddNoteCubit>(context).addNote(noteModel);
+                    var taskModel = TaskModel(
+                        title: title!,
+                        subTitle: subTitle!,
+                        date: formattedCurrentDate,
+                        color: Colors.blue.value);
+                    BlocProvider.of<AddTaskCubit>(context).addTask(taskModel);
                   } else {
                     autovalidateMode = AutovalidateMode.always;
                     setState(() {});

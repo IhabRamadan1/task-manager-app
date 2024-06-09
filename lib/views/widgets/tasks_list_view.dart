@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:task_manager_app/business_logic/tasks_cubit/tasks_cubit.dart';
 import 'package:task_manager_app/business_logic/tasks_cubit/tasks_states.dart';
+import 'package:task_manager_app/models/task_manager_model.dart';
+import 'package:task_manager_app/views/widgets/task_item.dart';
 
 
 class TasksListView extends StatelessWidget {
@@ -9,20 +11,20 @@ class TasksListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<NotesCubit, NotesState>(
+    return BlocBuilder<TasksCubit, TasksState>(
       builder: (context, state) {
-        // List<NoteModel> notes = BlocProvider.of<NotesCubit>(context).notes!;
+        List<TaskModel> tasks = BlocProvider.of<TasksCubit>(context).tasks!;
         return Padding(
           padding: const EdgeInsets.symmetric(vertical: 16),
           child: ListView.builder(
-              // itemCount: notes.length,
+              itemCount: tasks.length,
               padding: EdgeInsets.zero,
               itemBuilder: (context, index) {
                 return Padding(
                   padding: const EdgeInsets.symmetric(vertical: 4),
-                  // child: NoteItem(
-                  //   note: notes[index],
-                  // ),
+                  child: TaskItem(
+                    task: tasks[index],
+                  ),
                 );
               }),
         );

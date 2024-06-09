@@ -1,5 +1,5 @@
 
-abstract class NotesState {}
+abstract class TasksState {}
 
-class NotesInitial extends NotesState {}
-class NotesSuccess extends NotesState {}
+class TaskInitial extends TasksState {}
+class TaskSuccess extends TasksState {}

@@ -52,7 +52,7 @@ class _ColorsListViewState extends State<ColorsListView> {
             child: GestureDetector(
               onTap: () {
                 currentIndex = index;
-                BlocProvider.of<AddNoteCubit>(context).color = kColors[index];
+                BlocProvider.of<AddTaskCubit>(context).color = kColors[index];
                 setState(() {});
               },
               child: ColorItem(

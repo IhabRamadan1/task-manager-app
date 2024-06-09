@@ -1,14 +1,14 @@
 
-abstract class AddNoteState {}
+abstract class AddTaskState {}
 
-class AddNoteInitial extends AddNoteState {}
+class AddTaskInitial extends AddTaskState {}
 
-class AddNoteLoading extends AddNoteState {}
+class AddTaskLoading extends AddTaskState {}
 
-class AddNoteSuccess extends AddNoteState {}
+class AddTaskSuccess extends AddTaskState {}
 
-class AddNoteFailure extends AddNoteState {
+class AddTaskFailure extends AddTaskState {
   final String errMessage;
 
-  AddNoteFailure(this.errMessage);
+  AddTaskFailure(this.errMessage);
 }

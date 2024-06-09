@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:task_manager_app/business_logic/tasks_cubit/tasks_cubit.dart';
 
 import 'custom_app_bar.dart';
 import 'tasks_list_view.dart';
@@ -17,7 +18,7 @@ class _TasksViewBodyState extends State<TasksViewBody> {
 
   @override
   void initState() {
-    // BlocProvider.of<NotesCubit>(context).fetchAllNotes();
+    BlocProvider.of<TasksCubit>(context).fetchAllTasks();
     super.initState();
   }
   @override
@@ -30,8 +31,8 @@ class _TasksViewBodyState extends State<TasksViewBody> {
             height: 50,
           ),
           CustomAppBar(
-            title: 'Notes',
-            icon: Icons.search,
+            title: 'Tasks',
+            icon: Icons.task_alt,
           ),
           Expanded(
             child: TasksListView(),
