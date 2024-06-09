@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-
-import 'package:task_manager_app/business_logic/add_task_cubit/add_task_cubit.dart';
-import 'package:task_manager_app/business_logic/add_task_cubit/add_task_states.dart';
-import 'package:task_manager_app/models/task_manager_model.dart';
+import 'package:task_manager_app/business_logic/tasks_apis_cubit/tasks_api_cubit.dart';
+import 'package:task_manager_app/business_logic/tasks_apis_cubit/tasks_api_states.dart';
+import 'package:task_manager_app/data/task_manager_model.dart';
 
 import 'colors_list_view.dart';
 import 'custom_button.dart';
@@ -22,14 +21,14 @@ class AddTaskForm extends StatefulWidget {
 class _AddTaskFormState extends State<AddTaskForm> {
   final GlobalKey<FormState> formKey = GlobalKey();
 
-  AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
+  AutovalidateMode autoValidateMode = AutovalidateMode.disabled;
 
   String? title, subTitle;
   @override
   Widget build(BuildContext context) {
     return Form(
       key: formKey,
-      autovalidateMode: autovalidateMode,
+      autovalidateMode: autoValidateMode,
       child: Column(
         children: [
           const SizedBox(
@@ -58,7 +57,7 @@ class _AddTaskFormState extends State<AddTaskForm> {
           const SizedBox(
             height: 32,
           ),
-          BlocBuilder<AddTaskCubit, AddTaskState>(
+          BlocBuilder<TaskApiCubit, TaskApiState>(
             builder: (context, state) {
               return CustomButton(
                 isLoading: state is AddTaskLoading ? true : false,
@@ -74,9 +73,11 @@ class _AddTaskFormState extends State<AddTaskForm> {
                         subTitle: subTitle!,
                         date: formattedCurrentDate,
                         color: Colors.blue.value);
-                    BlocProvider.of<AddTaskCubit>(context).addTask(taskModel);
+                    BlocProvider.of<TaskApiCubit>(context).addTaskApi(title!);
+                    BlocProvider.of<TaskApiCubit>(context).addTaskLocally(taskModel);
+
                   } else {
-                    autovalidateMode = AutovalidateMode.always;
+                    autoValidateMode = AutovalidateMode.always;
                     setState(() {});
                   }
                 },

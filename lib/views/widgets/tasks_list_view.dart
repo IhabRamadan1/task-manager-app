@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:task_manager_app/business_logic/tasks_cubit/tasks_cubit.dart';
 import 'package:task_manager_app/business_logic/tasks_cubit/tasks_states.dart';
-import 'package:task_manager_app/models/task_manager_model.dart';
+import 'package:task_manager_app/data/apis_models/get_all_tasks_model.dart';
+import 'package:task_manager_app/data/task_manager_model.dart';
 import 'package:task_manager_app/views/widgets/task_item.dart';
 
 
 class TasksListView extends StatelessWidget {
-  const TasksListView({Key? key}) : super(key: key);
+  const TasksListView({Key? key, required this.todos}) : super(key: key);
+  final List<Todos> todos;
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +25,7 @@ class TasksListView extends StatelessWidget {
                 return Padding(
                   padding: const EdgeInsets.symmetric(vertical: 4),
                   child: TaskItem(
+                    id: todos[index].id!,
                     task: tasks[index],
                   ),
                 );

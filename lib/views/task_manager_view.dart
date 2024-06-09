@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
-
 import 'widgets/add_task_bottom_sheet.dart';
 import 'widgets/tasks_view_body.dart';
 
@@ -27,7 +24,7 @@ class TaskManagerView extends StatelessWidget {
         },
         child: const Icon(Icons.add),
       ),
-      body: const TasksViewBody(),
+      body:  const TasksViewBody(),
     );
   }
 }

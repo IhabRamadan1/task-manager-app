@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:task_manager_app/constants.dart';
+import 'package:task_manager_app/business_logic/tasks_apis_cubit/tasks_api_cubit.dart';
+import 'package:task_manager_app/core/constants/constants.dart';
 
-import '../../business_logic/add_task_cubit/add_task_cubit.dart';
 
 
 class ColorItem extends StatelessWidget {
@@ -52,7 +52,7 @@ class _ColorsListViewState extends State<ColorsListView> {
             child: GestureDetector(
               onTap: () {
                 currentIndex = index;
-                BlocProvider.of<AddTaskCubit>(context).color = kColors[index];
+                BlocProvider.of<TaskApiCubit>(context).color = kColors[index];
                 setState(() {});
               },
               child: ColorItem(

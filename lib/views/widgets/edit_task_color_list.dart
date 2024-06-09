@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:task_manager_app/models/task_manager_model.dart';
+import 'package:task_manager_app/data/task_manager_model.dart';
 
-import '../../constants.dart';
+import '../../core/constants/constants.dart';
 import 'colors_list_view.dart';
 
 class EditTaskColorsList extends StatefulWidget {

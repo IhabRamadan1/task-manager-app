@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:task_manager_app/constants.dart';
+import 'package:task_manager_app/core/constants/constants.dart';
 
 
 class CustomTextField extends StatelessWidget {
@@ -9,11 +7,18 @@ class CustomTextField extends StatelessWidget {
       {super.key,
         required this.hint,
         this.maxLines = 1,
+        this.controller,
         this.onSaved,
+        this.isPassword,
+        this.suffix,
+
         this.onChanged});
 
   final String hint;
   final int maxLines;
+  final bool? isPassword;
+  final Widget? suffix;
+  final TextEditingController? controller;
 
   final void Function(String?)? onSaved;
 
@@ -22,7 +27,9 @@ class CustomTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       onChanged: onChanged,
+      controller: controller,
       onSaved: onSaved,
+      obscureText: isPassword ?? false,
       validator: (value) {
         if (value?.isEmpty ?? true) {
           return 'Field is required ';
@@ -37,6 +44,8 @@ class CustomTextField extends StatelessWidget {
         border: buildBorder(),
         enabledBorder: buildBorder(),
         focusedBorder: buildBorder(kPrimaryColor),
+        suffixIcon: suffix,
+
       ),
     );
   }
