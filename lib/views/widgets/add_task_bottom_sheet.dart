@@ -16,7 +16,7 @@ class AddTaskBottomSheet extends StatelessWidget {
       listener: (context, state) {
         if (state is AddTaskFailure) {}
         if (state is AddTaskLocallySuccess) {
-          BlocProvider.of<TasksCubit>(context).fetchAllTasks();
+          BlocProvider.of<TasksCubit>(context).fetchAllTasks(10);
           Navigator.pop(context);
         }
         if (state is AddTaskSuccess) {

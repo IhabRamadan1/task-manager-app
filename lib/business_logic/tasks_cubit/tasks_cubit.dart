@@ -22,35 +22,36 @@ class TasksCubit extends Cubit<TasksState> {
   int _localSkip = 0;
 
   // Fetch initial tasks from Hive
-  void fetchAllTasks() {
+  void fetchAllTasks(localLimit) {
     var tasksBox = Hive.box<TaskModel>(kTaskBox);
-    tasks = tasksBox.values.take(_localLimit).toList();
+    tasks = tasksBox.values.take(localLimit).toList();
+    print("tasks number ${tasks!.length}");
     // Update skip position
-    _localSkip = _localLimit;
+    // _localSkip = _localLimit;
     emit(TaskSuccess());
   }
 
-  // Fetch more tasks from Hive for pagination
-  void fetchMoreTasks() {
-    if (isLoadingTasks) return;
-    isLoadingTasks = true;
-    emit(GetTasksLoading());
-    try {
-      var tasksBox = Hive.box<TaskModel>(kTaskBox);
-      final moreTasks = tasksBox.values.skip(_localSkip).take(_localLimit).toList(); // Fetch more tasks based on limit and skip
-      if (moreTasks.isNotEmpty) {
-        // Add fetched tasks to the existing list
-        tasks!.addAll(moreTasks);
-        // Update skip position
-        _localSkip += _localLimit;
-        emit(GetTasksSuccess());
-      } else {
-        emit(GetTasksFailure("No more tasks available")); // Emit failure if no more tasks available
-      }
-    } catch (e) {
-      emit(GetTasksFailure(e.toString()));
-    } finally {
-      isLoadingTasks = false;
-    }
-  }
+  // // Fetch more tasks from Hive for pagination
+  // void fetchMoreTasks() {
+  //   if (isLoadingTasks) return;
+  //   isLoadingTasks = true;
+  //   emit(GetTasksLoading());
+  //   try {
+  //     var tasksBox = Hive.box<TaskModel>(kTaskBox);
+  //     final moreTasks = tasksBox.values.skip(_localSkip).take(_localLimit).toList(); // Fetch more tasks based on limit and skip
+  //     if (moreTasks.isNotEmpty) {
+  //       // Add fetched tasks to the existing list
+  //       tasks!.addAll(moreTasks);
+  //       // Update skip position
+  //       _localSkip += _localLimit;
+  //       emit(GetTasksSuccess());
+  //     } else {
+  //       emit(GetTasksFailure("No more tasks available")); // Emit failure if no more tasks available
+  //     }
+  //   } catch (e) {
+  //     emit(GetTasksFailure(e.toString()));
+  //   } finally {
+  //     isLoadingTasks = false;
+  //   }
+  // }
 }

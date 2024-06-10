@@ -13,23 +13,34 @@ class TasksListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<TasksCubit, TasksState>(
+    return BlocConsumer<TasksCubit, TasksState>(
+      listener: (context,state){},
       builder: (context, state) {
         List<TaskModel> tasks = BlocProvider.of<TasksCubit>(context).tasks!;
-        return Padding(
-          padding: const EdgeInsets.symmetric(vertical: 16),
-          child: ListView.builder(
-              itemCount: tasks.length,
-              padding: EdgeInsets.zero,
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 4),
-                  child: TaskItem(
-                    id: todos[index].id!,
-                    task: tasks[index],
-                  ),
-                );
-              }),
+        return SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 16),
+            child: ListView.builder(
+              physics: const NeverScrollableScrollPhysics(),
+                itemCount: todos.length + 1,
+                padding: EdgeInsets.zero,
+                shrinkWrap: true,
+                itemBuilder: (context, index) {
+                  if (index <
+                      todos
+                          .length) {
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 4),
+                      child: TaskItem(
+                        id: todos[index].id!,
+                        task: tasks[index],
+                      ),
+                    );
+                  } else {
+                    return Container();
+                  }
+                }),
+          ),
         );
       },
     );

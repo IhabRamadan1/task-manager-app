@@ -23,7 +23,7 @@ class CustomAppBar extends StatelessWidget {
           Text(
             title,
             style:  TextStyle(
-              fontSize: 22.sp,
+              fontSize: 28.sp,
             ),
           ),
           CustomIcon(

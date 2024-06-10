@@ -12,6 +12,8 @@ import 'tasks_api_states.dart';
 class TaskApiCubit extends Cubit<TaskApiState> {
   TaskApiCubit() : super(TaskInitial());
 
+  static TaskApiCubit get(context) => BlocProvider.of(context);
+
   // add task locally using hive
 
   Color color = const Color(0xffAC3931);
@@ -49,6 +51,8 @@ class TaskApiCubit extends Cubit<TaskApiState> {
     }
   }
 
+  List<Todos> todosPagination = [];
+
   GetAllTasksModel? getAllTasksModel;
   void getTasksApi({required int limit, required int skip}) async {
     if (isLoadingTasks) return;
@@ -63,7 +67,12 @@ class TaskApiCubit extends Cubit<TaskApiState> {
         },
       );
       getAllTasksModel = GetAllTasksModel.fromJson(response.data);
-      tasks.addAll(response.data['todos']);
+      for (int i = 0; i < getAllTasksModel!.todos!.length; i++)
+      {
+        todosPagination.add(getAllTasksModel!.todos![i]);
+      }
+      print('nnnnnnnnnnn ${todosPagination.length}');
+      // tasks.addAll(response.data['todos']);
       emit(GetTasksSuccess());
     } catch (e) {
       emit(GetTasksFailure(e.toString()));
