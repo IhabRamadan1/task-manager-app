@@ -23,13 +23,14 @@ class _TasksViewBodyState extends State<TasksViewBody> {
 
   @override
   void initState() {
-    BlocProvider.of<TasksCubit>(context).fetchAllTasks(limit);
+    BlocProvider.of<TasksCubit>(context).fetchAllTasks();
     super.initState();
   }
   @override
   Widget build(BuildContext context) {
     return  BlocProvider(
-     create: (context)=> TaskApiCubit()..getTasksApi(limit: limit, skip: skip),
+     create: (context)=> TaskApiCubit()..getTasksApi(
+         limit: limit, skip: skip),
       child: BlocConsumer<TaskApiCubit,TaskApiState>(
         listener: (context,state){},
         builder: (context,state){
@@ -54,33 +55,29 @@ class _TasksViewBodyState extends State<TasksViewBody> {
                    enablePullUp: true,
                    header: const WaterDropHeader(),
                    onRefresh: () async {
-                     print('a');
                      refreshControllerEmployer.refreshCompleted();
                    },
                    onLoading: () {
-                     // setState(() {
                      if (TaskApiCubit.get(context)
                          .todosPagination
                          .length >=
                          10 &&
-                         limit !=
-                             TaskApiCubit.get(context)
-                                 .getAllTasksModel!
-                                 .total) {
+                         limit <=
+                             BlocProvider.of<TasksCubit>(context).tasks!.length) {
                        skip = limit;
                        limit+=10;
                        TaskApiCubit.get(context)
-                           .getTasksApi(limit: limit, skip: skip);
-                       BlocProvider.of<TasksCubit>(context).fetchAllTasks(limit: limit, skip: skip);
+                           .getTasksApi(
+
+                           limit: limit, skip: skip);
+                       BlocProvider.of<TasksCubit>(context).fetchAllTasks();
                        refreshControllerEmployer.loadComplete();
-                       print('completed $skip $limit');
                      } else {
                        refreshControllerEmployer.loadNoData();
                      }
-                     // });
                    },
                    child: TasksListView(
-                     todos: BlocProvider.of<TaskApiCubit>(context).todosPagination,
+                     todos: TaskApiCubit.get(context).todosPagination,
                    ),
                  ),
                ),

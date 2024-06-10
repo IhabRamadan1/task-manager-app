@@ -17,13 +17,13 @@ class AddTaskBottomSheet extends StatelessWidget {
         if (state is AddTaskFailure) {}
         if (state is AddTaskLocallySuccess) {
           BlocProvider.of<TasksCubit>(context).fetchAllTasks(
-              limit: 10, skip: 0
 
           );
           Navigator.pop(context);
         }
         if (state is AddTaskSuccess) {
-          BlocProvider.of<TaskApiCubit>(context).getTasksApi(limit: 10, skip: 0);
+          BlocProvider.of<TaskApiCubit>(context).getTasksApi(
+              limit: 10, skip: 0);
           Navigator.pop(context);
         }
       },

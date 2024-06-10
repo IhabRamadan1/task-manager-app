@@ -26,9 +26,7 @@ class TasksListView extends StatelessWidget {
                 padding: EdgeInsets.zero,
                 shrinkWrap: true,
                 itemBuilder: (context, index) {
-                  if (index <
-                      todos
-                          .length) {
+                  if (index < todos.length && index < tasks.length) {
                     return Padding(
                       padding: const EdgeInsets.symmetric(vertical: 4),
                       child: TaskItem(
