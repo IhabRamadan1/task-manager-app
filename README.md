@@ -21,6 +21,7 @@ Task Manager App is a Flutter-based application designed to help users manage th
 - API integration
 - Cubit (state management)
 - Pagination
+- Internet Connectivity
 
 
 ## Installation
