@@ -51,7 +51,7 @@ class _TasksViewBodyState extends State<TasksViewBody> {
                Expanded(
                  child: SmartRefresher(
                    controller: refreshControllerEmployer,
-                   enablePullDown: true,
+                   enablePullDown: false,
                    enablePullUp: true,
                    header: const WaterDropHeader(),
                    onRefresh: () async {

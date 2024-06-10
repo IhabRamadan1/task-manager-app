@@ -46,6 +46,7 @@ dependencies:
   flutter_screenutil: ^5.9.3
   shared_preferences: ^2.2.3
   pull_to_refresh: ^2.0.0
+  connectivity_plus: ^5.0.2
 
 
 dev_dependencies:
@@ -70,11 +71,12 @@ flutter_launcher_icons:
 
 flutter_native_splash:
   background_image: "assets/images/task.jpg"
+  color: "#FFFFFF"
   ios: true
 
   android_12:
     image: "assets/images/task.jpg"
-    color: '#ffffff'
+    color: '#FFFFFF'
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

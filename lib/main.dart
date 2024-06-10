@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:task_manager_app/core/network_services/local/shared_preferences.dart';
 import 'package:task_manager_app/views/login_screen.dart';
+import 'package:task_manager_app/views/widgets/no_connection.dart';
 import 'business_logic/tasks_apis_cubit/tasks_api_cubit.dart';
 import 'core/bloc_observer.dart';
 import 'business_logic/tasks_cubit/tasks_cubit.dart';
@@ -11,6 +12,7 @@ import 'core/network_services/remote/dio_helper.dart';
 import 'views/task_manager_view.dart';
 import 'data/task_manager_model.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -54,7 +56,16 @@ class MyApp extends StatelessWidget {
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
           theme: ThemeData(brightness: Brightness.dark, fontFamily: 'Poppins'),
-          home:  startWidget,
+          home:  StreamBuilder<ConnectivityResult>(
+              stream: Connectivity().onConnectivityChanged,
+              builder: (context,snapshot){
+                return
+                  snapshot.data == ConnectivityResult.none?
+                  const NoConnectionWidget()
+                      :
+                  startWidget;
+              },
+              ),
         ),
       ),
     );
