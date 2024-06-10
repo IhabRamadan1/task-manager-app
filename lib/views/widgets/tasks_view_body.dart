@@ -71,7 +71,7 @@ class _TasksViewBodyState extends State<TasksViewBody> {
                        limit+=10;
                        TaskApiCubit.get(context)
                            .getTasksApi(limit: limit, skip: skip);
-                       BlocProvider.of<TasksCubit>(context).fetchAllTasks(limit);
+                       BlocProvider.of<TasksCubit>(context).fetchAllTasks(limit: limit, skip: skip);
                        refreshControllerEmployer.loadComplete();
                        print('completed $skip $limit');
                      } else {
